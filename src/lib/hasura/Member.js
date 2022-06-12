@@ -1,10 +1,9 @@
-import { fetchGraphQLasAdmin } from "../hasura"
+import { fetchGraphQLasAdmin } from '../hasura';
 
 export class Member {
-
-
-	static getMembers = async (body) => {
-		return await fetchGraphQLasAdmin(`
+  static getMembers = async (body) => {
+    return await fetchGraphQLasAdmin(
+      `
 		query MyQuery {
 			members {
 				id
@@ -13,9 +12,8 @@ export class Member {
 				created_at
 			}
 		}
-			`, "MyQuery")
-
-	}
-
-
+			`,
+      'MyQuery',
+    );
+  };
 }

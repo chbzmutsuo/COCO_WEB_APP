@@ -1,22 +1,23 @@
-import { fetchGraphQLasAdmin } from "../hasura"
+import { fetchGraphQLasAdmin } from '../hasura';
 
 export class Genba {
-
-
-
-	static insertGenba = async (body) => {
-		const { bukken_number, genba_name, genba_address, billing, outsourcing_price, } = body
-		return await fetchGraphQLasAdmin(`
+  static insertGenba = async (body) => {
+    const { bukken_number, genba_name, genba_address, billing, outsourcing_price } = body;
+    return await fetchGraphQLasAdmin(
+      `
 	mutation bulkInsertGenbas {
     insert_genbas(objects: [{billing: ${billing}, bukken_number: ${bukken_number}, genba_address: "${genba_address}", genba_name: "${genba_name}", outsourcing_price: ${outsourcing_price}}]) {
       affected_rows
     }
   }
-`, "bulkInsertGenbas")
-	}
-	static updateGenba = async (body) => {
-		const { id, bukken_number, genba_name, genba_address, billing, outsourcing_price, } = body
-		return await fetchGraphQLasAdmin(`
+`,
+      'bulkInsertGenbas',
+    );
+  };
+  static updateGenba = async (body) => {
+    const { id, bukken_number, genba_name, genba_address, billing, outsourcing_price } = body;
+    return await fetchGraphQLasAdmin(
+      `
 		mutation MyMutation {
 			update_genbas_by_pk(pk_columns: {id: ${id}}, _set: {billing:${billing}, bukken_number:${bukken_number}, genba_address:"${genba_address}", genba_name:"${genba_name}", outsourcing_price:${outsourcing_price}}) {
 				billing
@@ -29,11 +30,14 @@ export class Genba {
 				updated_at
 			}
 		}
-	`, "MyMutation")
-	}
+	`,
+      'MyMutation',
+    );
+  };
 
-	static getGenbas = async (body) => {
-		return await fetchGraphQLasAdmin(`
+  static getGenbas = async (body) => {
+    return await fetchGraphQLasAdmin(
+      `
 		query MyQuery {
 			genbas {
 				billing
@@ -51,30 +55,33 @@ export class Genba {
 				}
 			}
 		}
-		`, "MyQuery")
-
-	}
-	static deleteGenba = async (id) => {
-		return await fetchGraphQLasAdmin(`
+		`,
+      'MyQuery',
+    );
+  };
+  static deleteGenba = async (id) => {
+    return await fetchGraphQLasAdmin(
+      `
 		mutation MyMutation2 {
 			delete_genbas_by_pk(id: ${id}) {
 				id
 				genba_name
 			}
 		}
-		`, "MyMutation2")
-	}
-	static assignMemberToGenba = async (genba_id, member_id) => {
-		return await fetchGraphQLasAdmin(`
+		`,
+      'MyMutation2',
+    );
+  };
+  static assignMemberToGenba = async (genba_id, member_id) => {
+    return await fetchGraphQLasAdmin(
+      `
 		mutation MyMutation {
 			insert_genbas_members(objects: { genba_id: ${genba_id}, member_id: ${member_id}}) {
 				affected_rows
 			}
 		}
-		`, "MyMutation")
-	}
-
-
-
-
+		`,
+      'MyMutation',
+    );
+  };
 }
