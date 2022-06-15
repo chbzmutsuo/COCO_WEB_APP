@@ -7,10 +7,10 @@ import FeeCulcurator from '../../components/childcare-fee/FeeCulcurator';
 import UsageAdjustment from '../../components/childcare-fee/UsageAdjustment';
 
 export default function Index() {
-  return (
-    <div>
-      <UsageAdjustment />
-      {/* <FeeCulcurator /> */}
-    </div>
-  );
+	return (
+		<div>
+			<UsageAdjustment />
+			{/* <FeeCulcurator /> */}
+		</div>
+	);
 }
