@@ -352,10 +352,10 @@ export default function Index() {
 				</header>
 				<Form className='flex flex-wrap  max-w-md mx-auto'>
 					<div className='w-1/3 p-1'>
-						<FloatingLabel controlId='floatingInput' label='年' className='mb-3 text-yellow-600'>
+						<FloatingLabel controlId='floatingInput' label='年(西暦)' className='mb-3 text-yellow-600'>
 							<Form.Control
 								type='number'
-								placeholder='年'
+								placeholder='年(西暦)'
 								value={birthYear}
 								onChange={(e) => {
 									if (e.target.value.length > 4) {
