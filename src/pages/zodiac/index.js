@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 export default function Index() {
 
+	const [dateListArray, setdateListArray] = useState([...Array(31)]);
 	const [loading, setloading] = useState(false);
 	const [birthYear, setbirthYear] = useState('');
 	const [birthMonth, setbirthMonth] = useState('');
@@ -333,6 +334,10 @@ export default function Index() {
 
 
 
+
+
+
+
 	return (
 
 		<div className='bg- w-full h-full min-h-screen '>
@@ -375,6 +380,26 @@ export default function Index() {
 								value={birthMonth}
 								onChange={(e) => {
 									setbirthMonth(e.target.value);
+									switch (e.target.value) {
+										case "4":
+										case "6":
+										case "9":
+										case "11": setdateListArray([...Array(30)]); break
+										case "2":
+											const isLeapYear = (year) => new Date(year + '/2/29').getMonth() === 1;
+											if (isLeapYear(birthYear) && birthMonth <= 2) {
+												m = -1;
+											}
+											if (isLeapYear(birthYear)) {
+												setdateListArray([...Array(29)]);
+											} else {
+												setdateListArray([...Array(28)]);
+											}
+											break;
+										default: setdateListArray([...Array(31)]); break;
+									}
+									console.log(dateListArray.length)   //////////
+
 								}}
 							>
 								<option value=''>選択</option>
@@ -402,7 +427,8 @@ export default function Index() {
 							>
 								<option value=''>選択</option>
 								{
-									[...Array(31)].map((_, i) => {
+
+									dateListArray.map((_, i) => {
 										return (
 											<option key={i} value={i + 1}>
 												{i + 1}
@@ -417,10 +443,11 @@ export default function Index() {
 				<BtnBasic center onClick={culcurate}>
 					サーチ
 				</BtnBasic>
-				{result && (
-					<div className='text-center m-10 flex flex-wrap  justify-center'>
+				{
+					result && (
+						<div className='text-center m-10 flex flex-wrap  justify-center'>
 
-						{/* <div>
+							{/* <div>
 							<div ><dt>日干支</dt><dd>{result.nikkan + result.nisshi}</dd></div>
 							<div><dt>月干支</dt><dd>{result.gekkan + result.gesshi}</dd></div>
 							<div><dt>年干支</dt><dd>{result.nenkan + result.nennshi}</dd></div>
@@ -455,40 +482,41 @@ export default function Index() {
 						</div> */}
 
 
-						{/* 以下を表示する */}
-						{symbolMaster[destiny.dateDest] &&
-							<div className='flex justify-around space-x-4 text-2xl font-bold'>
-								<div><span className='badge bg-gray-700'>{otherName}</span></div>
-								<div>
-									<span>{symbolMaster[destiny.dateDest]['symbol']}</span>
-									<span>{symbolMaster[destiny.dateDest]['number']}</span>
+							{/* 以下を表示する */}
+							{symbolMaster[destiny.dateDest] &&
+								<div className='flex justify-around space-x-4 text-2xl font-bold'>
+									<div><span className='badge bg-gray-700'>{otherName}</span></div>
+									<div>
+										<span>{symbolMaster[destiny.dateDest]['symbol']}</span>
+										<span>{symbolMaster[destiny.dateDest]['number']}</span>
+									</div>
+									<div>
+										<span>{symbolMaster[destiny.monthDest]['symbol']}</span>
+										<span>{symbolMaster[destiny.monthDest]['number']}</span>
+									</div>
+									<div>
+										<span>{symbolMaster[destiny.yearDest]['symbol']}</span>
+										<span>{symbolMaster[destiny.yearDest]['number']}</span>
+									</div>
 								</div>
-								<div>
-									<span>{symbolMaster[destiny.monthDest]['symbol']}</span>
-									<span>{symbolMaster[destiny.monthDest]['number']}</span>
-								</div>
-								<div>
-									<span>{symbolMaster[destiny.yearDest]['symbol']}</span>
-									<span>{symbolMaster[destiny.yearDest]['number']}</span>
-								</div>
-							</div>
-						}
+							}
 
-						<div>
-							{symbolMaster[destiny] && (
-								<p>
-									<dt>あなたの運勢は・・・</dt>
-									<dd className='flex flex-row space-x-4 justify-center text-xl font-bold m-4 text-yellow-500 '>
-										<span>{destiny}</span>
-										<span>{symbolMaster[destiny]['symbol']}</span>
-										<span>{symbolMaster[destiny]['number']}</span>
-									</dd>
-								</p>
-							)}
+							<div>
+								{symbolMaster[destiny] && (
+									<p>
+										<dt>あなたの運勢は・・・</dt>
+										<dd className='flex flex-row space-x-4 justify-center text-xl font-bold m-4 text-yellow-500 '>
+											<span>{destiny}</span>
+											<span>{symbolMaster[destiny]['symbol']}</span>
+											<span>{symbolMaster[destiny]['number']}</span>
+										</dd>
+									</p>
+								)}
+							</div>
 						</div>
-					</div>
-				)}
-			</div>
-		</div>
+					)
+				}
+			</div >
+		</div >
 	);
 }

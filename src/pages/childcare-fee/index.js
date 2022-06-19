@@ -9,8 +9,8 @@ import UsageAdjustment from '../../components/childcare-fee/UsageAdjustment';
 export default function Index() {
 	return (
 		<div>
-			<UsageAdjustment />
-			{/* <FeeCulcurator /> */}
+			{/* <UsageAdjustment /> */}
+			<FeeCulcurator />
 		</div>
 	);
 }
